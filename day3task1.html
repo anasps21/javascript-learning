@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        #error {
+            color: red;
+        }
+
+        li {
+            margin: 5px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>My To-Do List</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+
+    <p id="error"></p>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        function addTask() {
+
+            let input = document.getElementById("taskInput");
+            let task = input.value.trim();
+            let error = document.getElementById("error");
+
+
+            if (task === "") {
+                error.textContent = "Please enter a task!";
+                return;
+            }
+
+            error.textContent = "";
+
+    
+            let li = document.createElement("li");
+            li.textContent = task;
+
+            li.addEventListener("click", function () {
+                li.classList.toggle("completed");
+            });
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+
+            deleteBtn.addEventListener("click", function (event) {
+                event.stopPropagation();
+                li.remove();
+            });
+
+            li.appendChild(deleteBtn);
+
+            document.getElementById("taskList").appendChild(li);
+
+            input.value = "";
+        }
+    </script>
+
+</body>
+</html>
